@@ -28,11 +28,3 @@ for token in trainable_tokens:
         embed_dict[token] = [0.0] * embed_size
 embed_mat = np.array(
       [embed_dict.get(token,embed_dict['_UNK']) for token in idx2word], dtype=np.float32)
-
-path=r'F:\Bytecup2018\vocab\glove\embed1.txt'
-with open(path,'w+',encoding='utf-8') as f:
-    for i in range(vocab_size):
-        f.write(idx2word[i])
-        for j in range(embed_size):
-            f.write(' '+str(embed_mat[i][j]))
-        f.write('\n')
