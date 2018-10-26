@@ -2,13 +2,12 @@
 import json
 import re
 
-data_dir=[r'F:\Bytecup2018\bytecup.corpus.train.{}.txt'.format(i) for i in range(9)]
-data=[None]*9
-for i in range(9):
+file_num=9
+data_dir=[r'F:\Bytecup2018\bytecup.corpus.train.{}.txt'.format(i) for i in range(file_num)]#文件绝对地址
+data=[None]*file_num
+for i in range(file_num):
     with open(data_dir[i],'r+') as f:
         data[i] = [json.loads(line) for line in f]
-#print(data[1000000]['id'])#和id匹配
-#print(len(data)) data=[data1,data2,...]
 
 _WORD_SPLIT = re.compile(r"([.,!“\[\]\-/–—/”?\"\n:;…)(]|[^a-zA-Z\'])")
 _DATA=re.compile(r'((January|February|March|April|May|June|'
@@ -21,8 +20,9 @@ _DATA=re.compile(r'((January|February|March|April|May|June|'
                  r'July|August|September|October|November|December)\b)')
 _DIGIT=re.compile(r"\b\d+\b")
 _URL=re.compile(r'((https|http)\:\/\/[a-zA-Z0-9\.\/\-_]+)|(www.[a-zA-Z0-9\.\/\-_]+)')
+
 #save content to flie
-for i in range(9):
+for i in range(file_num):
     with open(r'F:\Bytecup2018\processed\train{}.txt'.format(i),
               'w+',encoding='utf-8') as ff:
         for j in range(len(data[i])):
@@ -39,8 +39,9 @@ for i in range(9):
             ff.write(words)
             ff.write('\n')
     print('train{} completed'.format(i))
+
 #save title to file
-for i in range(9):
+for i in range(file_num):
     with open(r'F:\Bytecup2018\processed\title\deal_title\train_title{}.txt'.format(i),
               'w+',encoding='utf-8') as ff:
         for j in range(len(data[i])):
